@@ -5,12 +5,14 @@ import java.net.Socket;
 
 public class Client {
     public static void main(String[] args) {
-
+        Socket client = null;
         try {
-            Socket client = new Socket("localhost", 8888);
+            client = new Socket("localhost", 8888);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        new Thread(new ClientSend(client)).start();
+        new Thread(new ClientReceive(client)).start();
     }
 
 }
