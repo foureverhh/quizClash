@@ -11,13 +11,16 @@ class ClientSend implements Runnable{
     private boolean clientIsRunning;
     private Scanner scanner;
     private String msg;
+    private String username;
 
-    public ClientSend(Socket client){
+    public ClientSend(Socket client,String username){
         this.client = client;
         clientIsRunning = true;
+        this.username = username;
         scanner = new Scanner(System.in);
         try {
             writer = new PrintWriter(client.getOutputStream(),true);
+            send(username);
         } catch (IOException e) {
             System.out.println("Client send writer error");
             release();
@@ -27,7 +30,8 @@ class ClientSend implements Runnable{
     public void run() {
         while (clientIsRunning){
             msg = scanner.nextLine();
-            System.out.println("Client sends "+msg);
+            //System.out.println(username+" sends: "+msg);
+
             if(msg!=null || !msg.isEmpty())
                 send(msg);
         }
@@ -45,6 +49,7 @@ class ClientSend implements Runnable{
     }
 
     void release(){
+        send(username+" has shutdown");
         clientIsRunning = false;
         writer.close();
         try {
