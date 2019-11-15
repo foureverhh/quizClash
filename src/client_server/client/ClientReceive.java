@@ -31,8 +31,10 @@ public class ClientReceive implements Runnable{
 
     void receive(){
         try {
-            if(reader.readLine()!=null)
-                System.out.println("Client receive: "+reader.readLine());
+            String msg = null;
+            if((msg =reader.readLine())!=null)
+                System.out.println("Client receive: "+msg);
+                //System.out.println(reader.readLine());
         } catch (IOException e) {
             release();
         }
