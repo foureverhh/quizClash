@@ -74,12 +74,12 @@ public class UserInterface {
         answerZone.add(answer2);
         answerZone.add(answer3);
         answerZone.add(answer4);
-
-        all.add(usernameZone);
+        all.setLayout(new GridLayout(5,0));
+        all.add(usernameZone,BorderLayout.NORTH);
         all.add(userScoreZone);
         all.add(categoryZone);
-        all.add(questionZone);
-        all.add(answerZone);
+        all.add(questionZone,BorderLayout.CENTER);
+        all.add(answerZone,BorderLayout.SOUTH);
 
         frame.add(all);
         frame.setSize(600,600);

@@ -10,13 +10,13 @@ import java.util.Scanner;
 public class Client {
 
     public static void main(String[] args) {
-        new UserInterface();
 
         //private boolean isMatched = false;
 
 
         System.out.println("Input your user name:");
         Scanner scanner = new Scanner(System.in);
+        new UserInterface();
         String userName = scanner.nextLine();
 
         try {
