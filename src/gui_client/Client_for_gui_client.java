@@ -1,6 +1,4 @@
-package client_server.client;
-
-import gui_client.UserInterface;
+package gui_client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,24 +7,31 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public class Client_for_gui_client{
+    private String ip;
+    private int port;
+    private String username;
 
-    public static void main(String[] args) {
-        new Client();
-    }
 
-    public Client() {
-        System.out.println("Input your user name:");
-        Scanner scanner = new Scanner(System.in);
-        new UserInterface();
-        String userName = scanner.nextLine();
+    public Client_for_gui_client(String username,String ip,int port) {
+        this.username = username;
+        this.ip = ip;
+        this.port = port;
+     /*   System.out.println("Input your user name:");
+        Scanner scanner = new Scanner(System.in);*/
+        //new UserInterface();
+       // String userName = scanner.nextLine();
 
         try {
-            Socket client = new Socket("localhost", 8888);
+            System.out.println("!!!!!!!!!");
+            Socket client = new Socket(ip, port);
        /*     new Thread(new ClientSend(client,userName)).start();
             new Thread(new ClientReceive(client)).start();*/
-            new SendInfo(client,userName).start();
+        //keep on sending and receiving
+            new SendInfo(client,username).start();
             new ReceiveInfo(client).start();
+
+            System.out.println("Client side connection succeed");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -138,4 +143,7 @@ public class Client {
         }
     }
 
+/*    public static void main(String[] args) {
+        new Client_for_gui_client("Test","localhost",8888).start();
+    }*/
 }

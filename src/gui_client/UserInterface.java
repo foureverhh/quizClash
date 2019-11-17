@@ -1,9 +1,8 @@
-package front_end;
+package gui_client;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class UserInterface {
     private JFrame frame;
@@ -41,6 +40,7 @@ public class UserInterface {
     private JButton answer2;
     private JButton answer3;
     private JButton answer4;
+    private boolean isConnected = false;
 
     public UserInterface(){
         frame = new JFrame("Game");
@@ -132,5 +132,43 @@ public class UserInterface {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
+
+        btn_start.addActionListener(l->{
+            if(!isConnected) {
+                String username = name_txt.getText().trim();
+                String ip = ip_txt.getText().trim();
+                int port = Integer.parseInt(port_txt.getText().trim());
+                new Client_for_gui_client(username, ip, port);
+                frame.setTitle(username);
+                user1name.setText(username);
+                isConnected = true;
+            }else {
+                JOptionPane.showMessageDialog(frame,"you are connected already!");
+            }
+            //new ClientSocket(username,ip,port);
+        });
+    }
+
+/*    class ClientSocket extends Thread{
+        private String ip;
+        private int port;
+        private String username;
+
+        public ClientSocket(String username,String ip, int port) {
+            this.ip = ip;
+            this.port = port;
+            this.username = username;
+        }
+
+        @Override
+        public void run() {
+            new Client_for_gui_client(username,ip,port);
+        }
+    }*/
+    public static void main(String[] args) {
+
+        new UserInterface();
     }
 }
