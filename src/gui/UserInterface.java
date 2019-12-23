@@ -1,4 +1,4 @@
-package gui_client;
+package gui;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -41,6 +41,7 @@ public class UserInterface {
     private JButton answer3;
     private JButton answer4;
     private boolean isConnected = false;
+    private boolean isMatched = false;
 
     public UserInterface(){
         frame = new JFrame("Game");

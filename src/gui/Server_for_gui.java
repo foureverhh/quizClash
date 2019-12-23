@@ -1,4 +1,4 @@
-package gui_client;
+package gui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,12 +6,12 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server_for_gui {
-    private CopyOnWriteArrayList<AliveConnection> connections ;
+    private CopyOnWriteArrayList<AliveConnection> connections;
+    private Socket player1;
+    private Socket player2;
 
     private boolean serverIsRunning = true;
 
@@ -28,13 +28,17 @@ public class Server_for_gui {
 
             while (serverIsRunning) {
 
-                Socket client = server.accept();
+                Socket play1 = server.accept();
+                Socket play2 = server.accept();
 
                 System.out.println("-----a client connected-----");
-                AliveConnection connection = new AliveConnection(client);
-                connection.start();
+                AliveConnection connection1 = new AliveConnection(play1);
+                AliveConnection connection2 = new AliveConnection(play2);
+                connection1.start();
+                connection2.start();
                 System.out.println("before channels size in Server: "+connections.size());
-                connections.add(connection);
+                connections.add(connection1);
+                connections.add(connection2);
                 System.out.println("after channels size in Server: "+connections.size());
             }
         } catch (IOException e) {
@@ -54,6 +58,7 @@ public class Server_for_gui {
         private String msg;
         private boolean clientIsRunning;
         private String clientName;
+        private Player player;
 
 
         public AliveConnection(Socket client) {
@@ -63,6 +68,9 @@ public class Server_for_gui {
             reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
             writer = new PrintWriter(client.getOutputStream(),true);
                 clientName = receive();
+
+                //Instantiate player
+                player = new Player(clientName);
             } catch (IOException e) {
                 System.out.println("!");
                 release();
@@ -101,6 +109,10 @@ public class Server_for_gui {
                 }
             }
             System.out.println("Connections size in AliveConnection: "+connections.size());
+        }
+
+        public void distributePartner(){
+
         }
         @Override
         public void run() {

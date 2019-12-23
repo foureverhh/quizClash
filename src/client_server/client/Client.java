@@ -1,6 +1,6 @@
 package client_server.client;
 
-import gui_client.UserInterface;
+import gui.UserInterface;
 
 import java.io.BufferedReader;
 import java.io.IOException;

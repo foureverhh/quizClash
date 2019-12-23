@@ -1,4 +1,4 @@
-package gui_client;
+package gui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,16 +7,19 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+
 public class Client_for_gui_client{
     private String ip;
     private int port;
     private String username;
+    //private Player player;
 
 
     public Client_for_gui_client(String username,String ip,int port) {
         this.username = username;
         this.ip = ip;
         this.port = port;
+        //player = new Player(username);
      /*   System.out.println("Input your user name:");
         Scanner scanner = new Scanner(System.in);*/
         //new UserInterface();
